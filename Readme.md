@@ -16,3 +16,9 @@ The Faithful serves as your personal Catholic community guide, helping you disco
 ## Development Status
 
 Currently in initial development phase, focusing on web application with plans for mobile deployment.
+
+## Development Tools
+
+- Primary IDE: Cursor
+- Version Control: GitHub Desktop
+- Project Management: GitHub
