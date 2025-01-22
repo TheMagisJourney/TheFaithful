@@ -1,0 +1,118 @@
+erDiagram
+    User ||--o{ UserParishRole : "belongs_to"
+    User ||--o{ EventParticipation : "participates_in"
+    User ||--o{ PrayerIntention : "creates"
+    User ||--o{ SpiritualCommitment : "maintains"
+    User ||--o{ MinistryMembership : "joins"
+    User {
+        string email PK
+        string passwordHash
+        date registrationDate
+        string firstName
+        string lastName
+        string preferredName
+        bool isActive
+        json notificationPreferences
+        date lastLogin
+    }
+
+    Parish ||--|{ Mass : "schedules"
+    Parish ||--|{ Event : "hosts"
+    Parish ||--|{ Ministry : "manages"
+    Parish ||--o{ UserParishRole : "has_members"
+    Parish {
+        string id PK
+        string name
+        string address
+        float latitude
+        float longitude
+        string diocese
+        string phone
+        string email
+        string website
+        json massSchedule
+        json confessionSchedule
+        json adorationSchedule
+    }
+
+    Event ||--|{ EventParticipation : "has_participants"
+    Event ||--o| Ministry : "organized_by"
+    Event {
+        string id PK
+        string title
+        string description
+        datetime startTime
+        datetime endTime
+        string location
+        int capacity
+        string eventType
+        bool requiresRegistration
+        string liturgicalSeason
+        bool isRecurring
+        json recurrencePattern
+    }
+
+    Ministry ||--|{ MinistryMembership : "has_members"
+    Ministry {
+        string id PK
+        string name
+        string description
+        string parishId FK
+        string leaderUserId FK
+        string meetingSchedule
+        string requirements
+    }
+
+    PrayerIntention {
+        string id PK
+        string userId FK
+        string intention
+        datetime createdAt
+        bool isPrivate
+        datetime fulfillmentDate
+    }
+
+    SpiritualCommitment {
+        string id PK
+        string userId FK
+        string commitmentType
+        string description
+        datetime startDate
+        datetime endDate
+        string frequency
+        bool isCompleted
+    }
+
+    UserParishRole {
+        string userId FK
+        string parishId FK
+        string role
+        date startDate
+        date endDate
+    }
+
+    EventParticipation {
+        string userId FK
+        string eventId FK
+        datetime registrationDate
+        string status
+        bool hasAttended
+    }
+
+    MinistryMembership {
+        string userId FK
+        string ministryId FK
+        string role
+        date startDate
+        bool isActive
+    }
+
+    Mass {
+        string id PK
+        string parishId FK
+        string type
+        time regularTime
+        string day
+        string language
+        bool isExtraordinaryForm
+    }
